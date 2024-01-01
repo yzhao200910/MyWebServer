@@ -12,8 +12,6 @@ Linux高性能服务器编程，游双著.
 
 ### Linux下c++轻量级Web服务器。
 
-技术特点：
-
 * 参照muduo，使用双缓冲技术实现了Log系统,支持日志回滚
 
 * 使用小根堆+unordered_map实现定时器队列，在此基础上进一步实现了长连接的处理
@@ -31,37 +29,27 @@ Linux高性能服务器编程，游双著.
 * 使用了智能指针、bind、function、右值引用等一些c++11的新特性
 
   
-
-
+##项目运行：
+./build.sh
+./WebServer/WebServer
 
 ## 服务器处理的基本流程
 
 可以看出这是一种主从reactor多线程模式的服务器.（reactor模式也称为事件驱动）参考自muduo
 
-![image-20231120152409377](C:\Users\16537\AppData\Roaming\Typora\typora-user-images\image-20231120152409377.png)
+![image-20231120152409377](https://github.com/yzhao200910/MyWebServer/assets/128422499/84e348ad-9ca7-4fd6-92e2-0f54370751fe)
 
 
-
-![image-20231120161827751](C:\Users\16537\AppData\Roaming\Typora\typora-user-images\image-20231120161827751.png)
-
-主从多线程Reactor模式的服务器可以参考GitHub：[yuesong-feng/30dayMakeCppServer: 30天自制C++服务器，包含教程和源代码 (github.com)](https://github.com/yuesong-feng/30dayMakeCppServer)
-
-这位大佬的项目学完可以看muduo库源码
+![image-20231120161827751](https://github.com/yzhao200910/MyWebServer/assets/128422499/1db2bc5e-18ff-4c1c-b092-94b9c9efc0a1)
 
 
+学习主从多线程Reactor模式的服务器基础可以参考GitHub：[yuesong-feng/30dayMakeCppServer: 30天自制C++服务器，包含教程和源代码 (github.com)](https://github.com/yuesong-feng/30dayMakeCppServer)
 
-现在给出框架
-
-
-![image-20231120152409377](https://github.com/yzhao200910/MyWebServer/assets/128422499/cbfc65b1-d2d1-465e-ada0-167b645f0d90)
-
-
-
-poll：30天自制服务器上有，这里拿Epoll；
+整体框架
+![image-20231120164842082](https://github.com/yzhao200910/MyWebServer/assets/128422499/7530ace2-30c2-4483-80e5-0008d1448bf0)
 
 ## 日志系统：参考与muduo的日志系统
-
-![image-20231120183122237](C:\Users\16537\AppData\Roaming\Typora\typora-user-images\image-20231120183122237.png)
+![image-20231120183122237](https://github.com/yzhao200910/MyWebServer/assets/128422499/d5e0637f-7b86-4cda-b014-2ebb0131fcf1)
 
 服务器的⽇志系统是⼀个多⽣产者，单消费者的任务场景：多⽣产者负责把⽇志写⼊缓冲区，单消费者负责把缓冲
 
@@ -108,5 +96,6 @@ currentBuffer_和nextBuffer_
 最后只想那块被分成的一个个小内存（才疏学浅，表达不出来）
 
 比如：一个memeory pool的大小是4096bytes, 没一个小块被等分的切割成8bytes.那所有小块的总和是4096
+![image-20231127214347210](https://github.com/yzhao200910/MyWebServer/assets/128422499/40200d9d-b9ec-458b-bb28-a804e097f22a)
 
-![image-20231127214347210](C:\Users\16537\AppData\Roaming\Typora\typora-user-images\image-20231127214347210.png)
+
